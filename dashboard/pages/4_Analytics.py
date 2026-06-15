@@ -5,6 +5,15 @@ import pandas as pd
 import plotly.express as px
 
 from pathlib import Path
+import sys
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+sys.path.append(str(BASE_DIR))
+
+from backend.database import initialize_database
+
+initialize_database()
 
 st.set_page_config(
     page_title="Fleet Analytics",
@@ -20,7 +29,15 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 
 db_path = BASE_DIR / "database" / "vehicle_tracking.db"
 
-conn = sqlite3.connect(db_path)
+db_path.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+conn = sqlite3.connect(
+    db_path,
+    check_same_thread=False
+)
 
 df = pd.read_sql(
     "SELECT * FROM vehicle_logs",

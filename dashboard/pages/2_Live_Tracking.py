@@ -6,6 +6,15 @@ import folium
 
 from pathlib import Path
 from streamlit_folium import st_folium
+import sys
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+sys.path.append(str(BASE_DIR))
+
+from backend.database import initialize_database
+
+initialize_database()
 
 st.set_page_config(
     page_title="Live Tracking",
@@ -16,7 +25,15 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 
 db_path = BASE_DIR / "database" / "vehicle_tracking.db"
 
-conn = sqlite3.connect(db_path)
+db_path.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+conn = sqlite3.connect(
+    db_path,
+    check_same_thread=False
+)
 
 df = pd.read_sql(
     "SELECT * FROM vehicle_logs",
