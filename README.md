@@ -185,7 +185,7 @@ VAN_301,DRIVER_04,19.999498,73.791817,34,ON,SAFE
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/IntelliTrack-IoT-Vehicle-Tracking-System.git
+git clone https://github.com/varda24/IntelliTrack-IoT-Vehicle-Tracking-System.git
 ```
 
 ### Install Dependencies
